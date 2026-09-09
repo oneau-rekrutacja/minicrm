@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}{{ offer.number }}{% endblock %}
+{% block content %}
+<h1>Oferta {{ offer.number }}</h1>
+<p>Klient: <strong>{{ offer.client.name|safe }}</strong>, {{ offer.client.city }}</p>
+<p>Opiekun: {{ offer.owner.name }}</p>
+<p>Status: <span class="badge">{{ offer.status_label }}</span></p>
+
+<table>
+  <tr><th>Kwota netto (przed rabatem)</th><td>{{ '%.2f'|format(offer.net_amount) }} zł</td></tr>
+  <tr><th>Rabat</th><td>{{ '%.0f'|format(offer.discount_percent) }}%</td></tr>
+  <tr><th>Netto po rabacie</th><td>{{ '%.2f'|format(totals.net) }} zł</td></tr>
+  <tr><th>VAT ({{ '%.0f'|format(offer.vat_rate) }}%)</th><td>{{ '%.2f'|format(totals.vat) }} zł</td></tr>
+  <tr><th>Brutto</th><td><strong>{{ '%.2f'|format(totals.gross) }} zł</strong></td></tr>
+</table>
+
+<a href="{{ url_for('main.offer_edit', offer_id=offer.id) }}">Edytuj ofertę</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Logowanie{% endblock %}
+{% block content %}
+<h1>Wybierz użytkownika</h1>
+<p>Demo bez haseł — kliknij, aby się zalogować.</p>
+<ul>
+  {% for u in users %}
+  <li><a href="{{ url_for('main.login', user_id=u.id) }}">{{ u.name }} — {{ u.role }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}
