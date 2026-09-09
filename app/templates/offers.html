@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Oferty{% endblock %}
+{% block content %}
+<h1>Moje oferty</h1>
+
+<form method="get">
+  <label>Status:
+    <select name="status" onchange="this.form.submit()">
+      <option value="">— wszystkie —</option>
+      {% for s in statuses %}
+      <option value="{{ s }}" {% if s == active_status %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </label>
+</form>
+
+<div class="summary">
+  Suma wartości wszystkich ofert: <strong>{{ '%.2f'|format(summary.total_gross) }} zł</strong>
+  ({{ summary.count }} ofert)
+</div>
+
+<table>
+  <tr>
+    <th>Numer</th><th>Klient</th><th>Status</th>
+    <th>Netto</th><th>Rabat</th><th>Brutto</th><th></th>
+  </tr>
+  {% for offer in offers.items %}
+  {% set t = totals(offer) %}
+  <tr>
+    <td>{{ offer.number }}</td>
+    <td>{{ offer.client.name|safe }}</td>
+    <td><span class="badge">{{ offer.status_label }}</span></td>
+    <td>{{ '%.2f'|format(offer.net_amount) }} zł</td>
+    <td>{{ '%.0f'|format(offer.discount_percent) }}%</td>
+    <td><strong>{{ '%.2f'|format(t.gross) }} zł</strong></td>
+    <td><a href="{{ url_for('main.offer_detail', offer_id=offer.id) }}">Szczegóły</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div>
+  {% if offers.has_prev %}<a href="{{ url_for('main.offer_list', page=offers.prev_num, status=active_status) }}">← Poprzednia</a>{% endif %}
+  Strona {{ offers.page }} z {{ offers.pages }}
+  {% if offers.has_next %}<a href="{{ url_for('main.offer_list', page=offers.next_num, status=active_status) }}">Następna →</a>{% endif %}
+</div>
+{% endblock %}
