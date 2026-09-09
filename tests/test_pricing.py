@@ -26,3 +26,9 @@ def test_calculate_offer_totals_zwraca_komplet_kluczy():
 def test_summarize_offers_liczy_pozycje():
     offers = [make_offer(1000.0), make_offer(2000.0)]
     assert summarize_offers(offers)["count"] == 2
+
+
+def test_podsumowanie_obejmuje_wszystkie_oferty(client, sample_data):
+    client.get(f"/login/{sample_data['user_id']}")
+    response = client.get("/offers")
+    assert "Suma wartości wszystkich ofert" in response.get_data(as_text=True)
