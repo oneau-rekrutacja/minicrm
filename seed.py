@@ -1,6 +1,6 @@
 """Wypełnia bazę danymi demonstracyjnymi. Uruchom: python seed.py"""
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from app import create_app, db
 from app.models import Client, Offer, User
@@ -52,7 +52,7 @@ def main():
                     net_amount=net,
                     discount_percent=disc,
                     vat_rate=23.0,
-                    created_at=datetime.utcnow() - timedelta(days=days),
+                    created_at=datetime.now(timezone.utc) - timedelta(days=days),
                     owner_id=users[owner_i].id,
                     client_id=clients[client_i].id,
                 )

@@ -1,6 +1,6 @@
 """Modele domenowe MiniCRM."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app import db
 
@@ -46,7 +46,7 @@ class Offer(db.Model):
     discount_percent = db.Column(db.Float, nullable=False, default=0.0)
     vat_rate = db.Column(db.Float, nullable=False, default=23.0)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     client_id = db.Column(db.Integer, db.ForeignKey("clients.id"), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
