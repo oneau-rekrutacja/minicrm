@@ -53,7 +53,9 @@ def offer_list():
         page=page, per_page=PER_PAGE, error_out=False
     )
 
-    summary = summarize_offers(offers.items)
+    # Podsumowanie musi obejmowac wszystkie oferty, nie tylko biezaca strone.
+    all_offers = Offer.query.all()
+    summary = summarize_offers(all_offers)
 
     return render_template(
         "offers.html",
