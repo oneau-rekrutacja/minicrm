@@ -50,6 +50,8 @@ app/services.py     — logika wyceny i podsumowań
 app/views.py        — widoki (blueprint)
 app/templates/      — szablony Jinja2
 seed.py             — dane demonstracyjne
+setup.sh            — skrót instalacyjny dla Linuksa i macOS
+requirements.txt    — zależności (Flask, SQLAlchemy, pytest)
 tests/              — testy pytest
 oddaj_prace.py      — pakuje pracę do przekazania (patrz niżej)
 ```
@@ -69,4 +71,8 @@ py oddaj_prace.py "Imię Nazwisko"          # Windows
 ```
 
 Skrypt zbiera Twoje pliki, gałęzie i commity do jednego archiwum ZIP w katalogu domowym
-i wypisze jego ścieżkę. Nie wymaga żadnych bibliotek ani konta GitHub.
+i wypisze jego ścieżkę. Zabiera też zmiany, których nie zdążyłeś zacommitować, oraz nowe
+pliki nieznane jeszcze gitowi — nic nie przepada. Nie wymaga żadnych bibliotek ani konta
+GitHub.
+
+Powstały plik odsyłasz w odpowiedzi na maila, którego dostałeś przed spotkaniem.
